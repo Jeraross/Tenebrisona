@@ -1,14 +1,10 @@
 /* keeper-console.css */
 
 .console-outer {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  transform-origin: bottom center;
 }
 
 .console-panel {
@@ -32,7 +28,7 @@
   justify-content: center;
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: 50%; /* Padrão redondo (minimizado) */
    
   background: radial-gradient(circle, #2c2f2f 0%, #111414 100%);
   border: 2px solid #5a4b3c;
@@ -45,6 +41,25 @@
     inset 0 2px 2px rgba(255, 255, 255, 0.05);
 }
 
+/* Estado do Menu Principal (Botões Retangulares) */
+.console-item.main-mode {
+  width: auto;
+  height: 64px;
+  padding: 0 1.5rem;
+  border-radius: 8px;
+  gap: 0.75rem;
+}
+
+.console-label-inline {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 1rem;
+  color: inherit;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+}
+
 .console-icon {
   display: flex;
   align-items: center;
@@ -55,6 +70,7 @@
 .console-label-container {
   position: absolute;
   top: -3.5rem;
+  left: 50%;
   pointer-events: none;
 }
 
@@ -69,4 +85,4 @@
   border: 1px solid #8b7355;
   box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.6);
   border-radius: 4px;
-}
+} 

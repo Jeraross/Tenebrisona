@@ -12,26 +12,40 @@ export type ConsoleItemData = {
 
 type KeeperConsoleProps = {
   items: ConsoleItemData[];
+  isMain?: boolean;
 };
 
-export default function KeeperConsole({ items }: KeeperConsoleProps) {
+export default function KeeperConsole({ items, isMain = true }: KeeperConsoleProps) {
   return (
-    <div className="console-outer">
-      <div className="console-panel" role="toolbar" aria-label="Console do Guardião">
-        {items.map((item, index) => (
-          <ConsoleButton key={index} item={item} />
-        ))}
-      </div>
-    </div>
+    <motion.div
+      layout
+      className="console-outer"
+      initial={false}
+      animate={{
+        scale: isMain ? 1 : 0.85,
+        y: isMain ? 0 : 15,
+      }}
+      style={{ transformOrigin: 'bottom center' }}
+      transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+    >
+      <motion.div layout className="console-panel" role="toolbar" aria-label="Console do Guardião">
+        <AnimatePresence mode="popLayout">
+          {items.map((item) => (
+            <ConsoleButton key={item.label} item={item} isMain={isMain} />
+          ))}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
   );
 }
 
-function ConsoleButton({ item }: { item: ConsoleItemData }) {
+function ConsoleButton({ item, isMain }: { item: ConsoleItemData, isMain: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.button
-      className="console-item"
+      layout="position"
+      className={`console-item ${isMain ? 'main-mode' : ''}`}
       onClick={item.onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -44,7 +58,6 @@ function ConsoleButton({ item }: { item: ConsoleItemData }) {
         color: '#b2c28e',
         boxShadow: '0 8px 15px rgba(0,0,0,0.8), inset 0 0 15px rgba(122, 139, 94, 0.4)',
       }}
-      // Animação de clique (botão físico afundando)
       whileTap={{
         y: 2,
         scale: 0.95,
@@ -52,22 +65,41 @@ function ConsoleButton({ item }: { item: ConsoleItemData }) {
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
-      <div className="console-icon">{item.icon}</div>
+      <motion.div layout="position" className="console-icon">
+        {item.icon}
+      </motion.div>
 
-      {/* Rótulo de Máquina de Escrever */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            className="console-label-container"
-            initial={{ opacity: 0, y: 10, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, rotate: 0 }}
-            exit={{ opacity: 0, y: 5, rotate: 2 }}
-            transition={{ duration: 0.2 }}
+      {/* Label Interno (Aparece apenas quando é o Menu Principal) */}
+      <AnimatePresence mode="wait">
+        {isMain && (
+          <motion.div 
+            layout="position"
+            initial={{ opacity: 0, width: 0 }} 
+            animate={{ opacity: 1, width: 'auto' }} 
+            exit={{ opacity: 0, width: 0 }} 
+            className="console-label-inline"
           >
-            <div className="console-label">{item.label}</div>
+            {item.label}
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Tooltip Hover Estilo Máquina de Escrever (Apenas Modo Sessão) */}
+      {!isMain && (
+        <AnimatePresence>
+          {isHovered && (
+            <motion.div
+              className="console-label-container"
+              initial={{ opacity: 0, y: 0, x: "-50%", rotate: -2 }}
+              animate={{ opacity: 1, y: 0, x: "-50%", rotate: 0 }}
+              exit={{ opacity: 0, y: 5, x: "-50%", rotate: 2 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="console-label">{item.label}</div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </motion.button>
   );
 }
