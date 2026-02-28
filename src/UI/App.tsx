@@ -1,30 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg' 
 import './App.css'
+import Balatro from './components/balatro/balatro.tsx';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+<div style={{ 
+      width: '100vw', 
+      height: '100vh', 
+      margin: 0, 
+      padding: 0, 
+      overflow: 'hidden',
+      backgroundColor: '#0d1b1e'
+    }}>
+      <Balatro 
+        isRotate={false} 
+        mouseInteraction={true} 
+        pixelFilter={800} 
+        color1="#0d1b1e" 
+        color2="#c0a080" 
+        color3="#2f4f4f"
+      />
+    </div>
   )
 }
 
