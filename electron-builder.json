@@ -1,0 +1,19 @@
+{
+    "appId": "com.tenebrisona.app",
+    "files": [
+        "dist-react",
+        "dist-electron"
+    ],
+    "mac": {
+        "target": "dmg",
+        "icon": "./Tenebrisona-app/build/icon.icns"
+    },
+    "win": {
+        "target": ["nsis", "portable"],
+        "icon": "./tenebris.ico"
+    },
+    "linux": {
+        "target": "AppImage",
+        "category": "Utility"
+    }
+}
