@@ -13,7 +13,7 @@ function App() {
 // Guarda o estado global. null = Menu Principal
   const [activeModule, setActiveModule] = useState<string | null>(null);
 
-  // Lista com todos os botões do sistema (Modo Aventura/Sessão)
+  // Lista com os botões do sistema
   const allItems = [ 
     { icon: <GiMagnifyingGlass size={28} />, label: 'INVESTIGAÇÕES', onClick: () => setActiveModule('INVESTIGAÇÕES') },
     { icon: <GiSecretBook size={28} />, label: 'LIBER AZATHOTH', onClick: () => setActiveModule('LIBER AZATHOTH') },

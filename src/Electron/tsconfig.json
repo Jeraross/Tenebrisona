@@ -3,7 +3,9 @@
         "strict": true,
         "target": "esnext",
         "module": "nodenext",
+        "rootDir": "..",
         "outDir": "../../dist-electron",
         "skipLibCheck": true
-    }
+    },
+    "include": ["./**/*.ts", "../preload/**/*.ts"]
 }
