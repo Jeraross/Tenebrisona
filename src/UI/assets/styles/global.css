@@ -10,3 +10,11 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
+@font-face {
+  font-family: 'AonCariCeltic';
+  src: url('../fonts/AONCC___.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+

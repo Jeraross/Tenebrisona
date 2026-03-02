@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import Balatro from './components/balatro/balatro.tsx';
 import KeeperConsole from './components/keeper-console/keeper-console.tsx';
-import Investigations from './features/investigations/index.tsx';
+import TitleLogo from './components/title-logo/title-logo.tsx';
+import Investigations from './features/investigations/index.tsx'; 
 import {
   GiMagnifyingGlass,
   GiSecretBook,
@@ -16,16 +17,13 @@ function App() {
   // Lista com os botões do sistema
   const allItems = [ 
     { icon: <GiMagnifyingGlass size={28} />, label: 'INVESTIGAÇÕES', onClick: () => setActiveModule('INVESTIGAÇÕES') },
-    { icon: <GiSecretBook size={28} />, label: 'LIBER AZATHOTH', onClick: () => setActiveModule('LIBER AZATHOTH') },
-    //{ icon: <GiSoundWaves size={28} />, label: 'PAINEL DA SESSÃO', onClick: () => setActiveModule('PAINEL DA SESSÃO') },
-    //{ icon: <GiShouting size={28} />, label: 'CHAMADO', onClick: () => setActiveModule('CHAMADO') }, 
-    //{ icon: <GiDiceTwentyFacesTwenty size={28} />, label: 'DESTINO', onClick: () => setActiveModule('DESTINO') },
-    { icon: <GiGearHammer size={28} />, label: 'MOTOR DE ÁUDIO', onClick: () => setActiveModule('MOTOR DE ÁUDIO') },
+    { icon: <GiSecretBook size={28} />, label: 'LIBER AZATHOTH', onClick: () => setActiveModule('LIBER AZATHOTH') }, 
+    { icon: <GiGearHammer size={28} />, label: 'CONFIGURAÇÕES', onClick: () => setActiveModule('CONFIGURAÇÕES') },
   ];
 
   // Filtra apenas os botões cruciais para a tela inicial
   const mainItems = allItems.filter(item => 
-    ['INVESTIGAÇÕES', 'LIBER AZATHOTH', 'MOTOR DE ÁUDIO'].includes(item.label)
+    ['INVESTIGAÇÕES', 'LIBER AZATHOTH', 'CONFIGURAÇÕES'].includes(item.label)
   );
 
   const isMainMenu = activeModule === null;
@@ -52,6 +50,32 @@ function App() {
         color3="#2f4f4f"
       />
 
+      {/* --- LOGO TENEBRISONA (MENU PRINCIPAL) --- */}
+      <AnimatePresence>
+        {isMainMenu && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 1.1, filter: 'blur(20px)' }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: '6rem', // Deixa espaço para o Console do Guardião em baixo
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              pointerEvents: 'none', // Permite clicar "através" da logo
+              zIndex: 5
+            }}
+          >
+            <TitleLogo />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
       {/* --- HUD DO MÓDULO --- */}
       <AnimatePresence>
         {!isMainMenu && (
@@ -61,10 +85,10 @@ function App() {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             style={{
               position: 'absolute',
-              top: '2rem',
+              top: '1rem',
               left: '2rem',
               right: '2rem',
-              bottom: '7rem',
+              bottom: '5rem',
               backgroundColor: 'rgba(26, 22, 20, 0.95)',
               border: '2px solid #4a3b2c',
               borderRadius: '8px',
