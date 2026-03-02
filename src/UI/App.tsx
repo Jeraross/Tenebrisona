@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import './App.css'
 import Balatro from './components/balatro/balatro.tsx';
-import KeeperConsole from './components/keeper-console/keeper-console.tsx'; 
-import { 
-  GiMagnifyingGlass, 
-  GiSecretBook,  
-  GiGearHammer   
+import KeeperConsole from './components/keeper-console/keeper-console.tsx';
+import Investigations from './features/investigations/index.tsx';
+import {
+  GiMagnifyingGlass,
+  GiSecretBook,
+  GiGearHammer
 } from 'react-icons/gi';
 
 function App() {
@@ -41,7 +41,6 @@ function App() {
         position: 'relative',
         backgroundColor: '#0d1b1e'
       }}
-      // Este clique garante que ao clicar no fundo, voltamos ao Menu Principal
       onClick={() => setActiveModule(null)} 
     >
       <Balatro 
@@ -65,7 +64,7 @@ function App() {
               top: '2rem',
               left: '2rem',
               right: '2rem',
-              bottom: '7rem', // Espaço reservado para o console minimizado abaixo
+              bottom: '7rem',
               backgroundColor: 'rgba(26, 22, 20, 0.95)',
               border: '2px solid #4a3b2c',
               borderRadius: '8px',
@@ -75,12 +74,9 @@ function App() {
               boxShadow: '0 20px 40px rgba(0,0,0,0.8)',
               zIndex: 10
             }}
-            // Evita que clicar dentro da janela do módulo a feche
             onClick={(e) => e.stopPropagation()} 
           >
-            <h1 style={{ color: '#d8cbb8', fontFamily: 'Courier New' }}>
-              Interface do Módulo: {activeModule}
-            </h1>
+            {activeModule === 'INVESTIGAÇÕES' && <Investigations />}
           </motion.div>
         )}
       </AnimatePresence>
